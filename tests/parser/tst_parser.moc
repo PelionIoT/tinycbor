@@ -1,0 +1,320 @@
+/****************************************************************************
+** Meta object code from reading C++ file 'tst_parser.cpp'
+**
+** Created by: The Qt Meta Object Compiler version 67 (Qt 5.2.1)
+**
+** WARNING! All changes made in this file will be lost!
+*****************************************************************************/
+
+#include <QtCore/qbytearray.h>
+#include <QtCore/qmetatype.h>
+#if !defined(Q_MOC_OUTPUT_REVISION)
+#error "The header file 'tst_parser.cpp' doesn't include <QObject>."
+#elif Q_MOC_OUTPUT_REVISION != 67
+#error "This file was generated using the moc from 5.2.1. It"
+#error "cannot be used with the include files from this version of Qt."
+#error "(The moc has changed too much.)"
+#endif
+
+QT_BEGIN_MOC_NAMESPACE
+struct qt_meta_stringdata_tst_Parser_t {
+    QByteArrayData data[51];
+    char stringdata[739];
+};
+#define QT_MOC_LITERAL(idx, ofs, len) \
+    Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
+    offsetof(qt_meta_stringdata_tst_Parser_t, stringdata) + ofs \
+        - idx * sizeof(QByteArrayData) \
+    )
+static const qt_meta_stringdata_tst_Parser_t qt_meta_stringdata_tst_Parser = {
+    {
+QT_MOC_LITERAL(0, 0, 10),
+QT_MOC_LITERAL(1, 11, 15),
+QT_MOC_LITERAL(2, 27, 0),
+QT_MOC_LITERAL(3, 28, 10),
+QT_MOC_LITERAL(4, 39, 5),
+QT_MOC_LITERAL(5, 45, 12),
+QT_MOC_LITERAL(6, 58, 7),
+QT_MOC_LITERAL(7, 66, 9),
+QT_MOC_LITERAL(8, 76, 4),
+QT_MOC_LITERAL(9, 81, 12),
+QT_MOC_LITERAL(10, 94, 7),
+QT_MOC_LITERAL(11, 102, 20),
+QT_MOC_LITERAL(12, 123, 15),
+QT_MOC_LITERAL(13, 139, 11),
+QT_MOC_LITERAL(14, 151, 6),
+QT_MOC_LITERAL(15, 158, 22),
+QT_MOC_LITERAL(16, 181, 17),
+QT_MOC_LITERAL(17, 199, 17),
+QT_MOC_LITERAL(18, 217, 12),
+QT_MOC_LITERAL(19, 230, 9),
+QT_MOC_LITERAL(20, 240, 4),
+QT_MOC_LITERAL(21, 245, 20),
+QT_MOC_LITERAL(22, 266, 15),
+QT_MOC_LITERAL(23, 282, 15),
+QT_MOC_LITERAL(24, 298, 10),
+QT_MOC_LITERAL(25, 309, 13),
+QT_MOC_LITERAL(26, 323, 8),
+QT_MOC_LITERAL(27, 332, 18),
+QT_MOC_LITERAL(28, 351, 13),
+QT_MOC_LITERAL(29, 365, 18),
+QT_MOC_LITERAL(30, 384, 13),
+QT_MOC_LITERAL(31, 398, 30),
+QT_MOC_LITERAL(32, 429, 25),
+QT_MOC_LITERAL(33, 455, 17),
+QT_MOC_LITERAL(34, 473, 12),
+QT_MOC_LITERAL(35, 486, 18),
+QT_MOC_LITERAL(36, 505, 13),
+QT_MOC_LITERAL(37, 519, 12),
+QT_MOC_LITERAL(38, 532, 7),
+QT_MOC_LITERAL(39, 540, 20),
+QT_MOC_LITERAL(40, 561, 15),
+QT_MOC_LITERAL(41, 577, 15),
+QT_MOC_LITERAL(42, 593, 10),
+QT_MOC_LITERAL(43, 604, 21),
+QT_MOC_LITERAL(44, 626, 16),
+QT_MOC_LITERAL(45, 643, 18),
+QT_MOC_LITERAL(46, 662, 13),
+QT_MOC_LITERAL(47, 676, 15),
+QT_MOC_LITERAL(48, 692, 10),
+QT_MOC_LITERAL(49, 703, 19),
+QT_MOC_LITERAL(50, 723, 14)
+    },
+    "tst_Parser\0initParserEmpty\0\0fixed_data\0"
+    "fixed\0strings_data\0strings\0tags_data\0"
+    "tags\0tagTags_data\0tagTags\0"
+    "emptyContainers_data\0emptyContainers\0"
+    "arrays_data\0arrays\0undefLengthArrays_data\0"
+    "undefLengthArrays\0nestedArrays_data\0"
+    "nestedArrays\0maps_data\0maps\0"
+    "undefLengthMaps_data\0undefLengthMaps\0"
+    "nestedMaps_data\0nestedMaps\0mapMixed_data\0"
+    "mapMixed\0mapsAndArrays_data\0mapsAndArrays\0"
+    "chunkedString_data\0chunkedString\0"
+    "chunkedStringInUndefArray_data\0"
+    "chunkedStringInUndefArray\0stringLength_data\0"
+    "stringLength\0stringCompare_data\0"
+    "stringCompare\0mapFind_data\0mapFind\0"
+    "checkedIntegers_data\0checkedIntegers\0"
+    "validation_data\0validation\0"
+    "strictValidation_data\0strictValidation\0"
+    "resumeParsing_data\0resumeParsing\0"
+    "endPointer_data\0endPointer\0"
+    "recursionLimit_data\0recursionLimit\0"
+};
+#undef QT_MOC_LITERAL
+
+static const uint qt_meta_data_tst_Parser[] = {
+
+ // content:
+       7,       // revision
+       0,       // classname
+       0,    0, // classinfo
+      49,   14, // methods
+       0,    0, // properties
+       0,    0, // enums/sets
+       0,    0, // constructors
+       0,       // flags
+       0,       // signalCount
+
+ // slots: name, argc, parameters, tag, flags
+       1,    0,  259,    2, 0x08,
+       3,    0,  260,    2, 0x08,
+       4,    0,  261,    2, 0x08,
+       5,    0,  262,    2, 0x08,
+       6,    0,  263,    2, 0x08,
+       7,    0,  264,    2, 0x08,
+       8,    0,  265,    2, 0x08,
+       9,    0,  266,    2, 0x08,
+      10,    0,  267,    2, 0x08,
+      11,    0,  268,    2, 0x08,
+      12,    0,  269,    2, 0x08,
+      13,    0,  270,    2, 0x08,
+      14,    0,  271,    2, 0x08,
+      15,    0,  272,    2, 0x08,
+      16,    0,  273,    2, 0x08,
+      17,    0,  274,    2, 0x08,
+      18,    0,  275,    2, 0x08,
+      19,    0,  276,    2, 0x08,
+      20,    0,  277,    2, 0x08,
+      21,    0,  278,    2, 0x08,
+      22,    0,  279,    2, 0x08,
+      23,    0,  280,    2, 0x08,
+      24,    0,  281,    2, 0x08,
+      25,    0,  282,    2, 0x08,
+      26,    0,  283,    2, 0x08,
+      27,    0,  284,    2, 0x08,
+      28,    0,  285,    2, 0x08,
+      29,    0,  286,    2, 0x08,
+      30,    0,  287,    2, 0x08,
+      31,    0,  288,    2, 0x08,
+      32,    0,  289,    2, 0x08,
+      33,    0,  290,    2, 0x08,
+      34,    0,  291,    2, 0x08,
+      35,    0,  292,    2, 0x08,
+      36,    0,  293,    2, 0x08,
+      37,    0,  294,    2, 0x08,
+      38,    0,  295,    2, 0x08,
+      39,    0,  296,    2, 0x08,
+      40,    0,  297,    2, 0x08,
+      41,    0,  298,    2, 0x08,
+      42,    0,  299,    2, 0x08,
+      43,    0,  300,    2, 0x08,
+      44,    0,  301,    2, 0x08,
+      45,    0,  302,    2, 0x08,
+      46,    0,  303,    2, 0x08,
+      47,    0,  304,    2, 0x08,
+      48,    0,  305,    2, 0x08,
+      49,    0,  306,    2, 0x08,
+      50,    0,  307,    2, 0x08,
+
+ // slots: parameters
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
+
+       0        // eod
+};
+
+void tst_Parser::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
+{
+    if (_c == QMetaObject::InvokeMetaMethod) {
+        tst_Parser *_t = static_cast<tst_Parser *>(_o);
+        switch (_id) {
+        case 0: _t->initParserEmpty(); break;
+        case 1: _t->fixed_data(); break;
+        case 2: _t->fixed(); break;
+        case 3: _t->strings_data(); break;
+        case 4: _t->strings(); break;
+        case 5: _t->tags_data(); break;
+        case 6: _t->tags(); break;
+        case 7: _t->tagTags_data(); break;
+        case 8: _t->tagTags(); break;
+        case 9: _t->emptyContainers_data(); break;
+        case 10: _t->emptyContainers(); break;
+        case 11: _t->arrays_data(); break;
+        case 12: _t->arrays(); break;
+        case 13: _t->undefLengthArrays_data(); break;
+        case 14: _t->undefLengthArrays(); break;
+        case 15: _t->nestedArrays_data(); break;
+        case 16: _t->nestedArrays(); break;
+        case 17: _t->maps_data(); break;
+        case 18: _t->maps(); break;
+        case 19: _t->undefLengthMaps_data(); break;
+        case 20: _t->undefLengthMaps(); break;
+        case 21: _t->nestedMaps_data(); break;
+        case 22: _t->nestedMaps(); break;
+        case 23: _t->mapMixed_data(); break;
+        case 24: _t->mapMixed(); break;
+        case 25: _t->mapsAndArrays_data(); break;
+        case 26: _t->mapsAndArrays(); break;
+        case 27: _t->chunkedString_data(); break;
+        case 28: _t->chunkedString(); break;
+        case 29: _t->chunkedStringInUndefArray_data(); break;
+        case 30: _t->chunkedStringInUndefArray(); break;
+        case 31: _t->stringLength_data(); break;
+        case 32: _t->stringLength(); break;
+        case 33: _t->stringCompare_data(); break;
+        case 34: _t->stringCompare(); break;
+        case 35: _t->mapFind_data(); break;
+        case 36: _t->mapFind(); break;
+        case 37: _t->checkedIntegers_data(); break;
+        case 38: _t->checkedIntegers(); break;
+        case 39: _t->validation_data(); break;
+        case 40: _t->validation(); break;
+        case 41: _t->strictValidation_data(); break;
+        case 42: _t->strictValidation(); break;
+        case 43: _t->resumeParsing_data(); break;
+        case 44: _t->resumeParsing(); break;
+        case 45: _t->endPointer_data(); break;
+        case 46: _t->endPointer(); break;
+        case 47: _t->recursionLimit_data(); break;
+        case 48: _t->recursionLimit(); break;
+        default: ;
+        }
+    }
+    Q_UNUSED(_a);
+}
+
+const QMetaObject tst_Parser::staticMetaObject = {
+    { &QObject::staticMetaObject, qt_meta_stringdata_tst_Parser.data,
+      qt_meta_data_tst_Parser,  qt_static_metacall, 0, 0}
+};
+
+
+const QMetaObject *tst_Parser::metaObject() const
+{
+    return QObject::d_ptr->metaObject ? QObject::d_ptr->dynamicMetaObject() : &staticMetaObject;
+}
+
+void *tst_Parser::qt_metacast(const char *_clname)
+{
+    if (!_clname) return 0;
+    if (!strcmp(_clname, qt_meta_stringdata_tst_Parser.stringdata))
+        return static_cast<void*>(const_cast< tst_Parser*>(this));
+    return QObject::qt_metacast(_clname);
+}
+
+int tst_Parser::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
+{
+    _id = QObject::qt_metacall(_c, _id, _a);
+    if (_id < 0)
+        return _id;
+    if (_c == QMetaObject::InvokeMetaMethod) {
+        if (_id < 49)
+            qt_static_metacall(this, _c, _id, _a);
+        _id -= 49;
+    } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
+        if (_id < 49)
+            *reinterpret_cast<int*>(_a[0]) = -1;
+        _id -= 49;
+    }
+    return _id;
+}
+QT_END_MOC_NAMESPACE

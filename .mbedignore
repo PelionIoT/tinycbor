@@ -1,0 +1,3 @@
+src/open_memstream.c
+tests/*
+*/*.o
