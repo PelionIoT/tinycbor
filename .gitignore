@@ -1,4 +1,17 @@
-BUILD/*
 *.a
 *.so
 *.o
+src/open_memstream.c
+qt_tests/*
+#------------------ 
+# Mbed-OS
+#------------------ 
+.mbed
+.temp/
+mbed-app.json
+
+#------------------ 
+# External repos
+#------------------
+mbed-os
+e2e-unity
