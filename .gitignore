@@ -2,7 +2,8 @@
 *.so
 *.o
 src/open_memstream.c
-
+lib
+bin
 
 #------------------ 
 # Mbed-OS
