@@ -38,7 +38,7 @@ fi
 TOOLCHAIN="$1"
 
 if [ -z $TOOLCHAIN ]; then
-	echo "Toolchain missing: Select GCC_ARM or ARM"
+	echo "Please select one option : Select GCC_ARM or ARM"
 	exit 1
 fi
 
@@ -46,17 +46,16 @@ if [ "$TOOLCHAIN" == "GCC_ARM" ]; then
 	export TOOLCHAIN="GCC_ARM"
 elif [ "$TOOLCHAIN" == "ARM" ]; then
 	export TOOLCHAIN="ARM"
+	export ARMLMD_LICENSE_FILE=$TINY_CBOR_TOP/TESTS/arm_licenses/arm_licenses.lic
 else 
 	echo "Unsupported toolchain Select GCC_ARM or ARM "
 	exit 1
 fi
-
 
 MBEDIGNORE="*"
 
 echo "$MBEDIGNORE"     >|  "$TINY_CBOR_TOP"/mbed-os/features/frameworks/.mbedignore
 echo "$MBEDIGNORE"     >|  "$TINY_CBOR_TOP"/mbed-os/features/filesystem/littlefs/.mbedignore
 
-
-make -f Mbed_Makefile
+make -f mbed_Makefile
 

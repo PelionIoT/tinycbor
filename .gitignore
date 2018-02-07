@@ -2,14 +2,18 @@
 *.so
 *.o
 src/open_memstream.c
-qt_tests/*
+lib
+bin
+
 #------------------ 
 # Mbed-OS
 #------------------ 
 .mbed
 .temp/
 mbed-app.json
-
+BUILD
+mbed-os
+e2e-untiy
 #------------------ 
 # External repos
 #------------------

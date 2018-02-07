@@ -1,3 +1,3 @@
-src/open_memstream.c
-qt_linux_tests/*
+linux_src/*
+qt_tests/*
 */*.o

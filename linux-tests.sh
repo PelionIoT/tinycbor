@@ -16,21 +16,16 @@
 # source (!) this file while at SPV tree top - DO NOT run it
 export TINY_CBOR_TOP=`pwd`
 
-
 	sudo apt-get install qt5-default
 	export ARCH=`uname -m`
-    unset CROSS_COMPILE
-    export CC=gcc
-    export CXX=g++
-    export AR=ar
-    export LD=ld
-    export OBJCOPY=/usr/bin/objcopy #FIXME: move to /opt
-    export PATH=/usr/bin:$PATH
+	unset CROSS_COMPILE
+	export CC=gcc
+	export CXX=g++
+	export AR=ar
+	export LD=ld
+	export OBJCOPY=/usr/bin/objcopy #FIXME: move to /opt
+	export PATH=/usr/bin:$PATH
 
-	#unset AR
-	#unset CROSS_COMPILE
-	#unset CC
-	#unset ARCH
-	make  -f QMakefile
-    cd qt_linux_tests
-    make
+	make
+	cd qt_tests
+	make

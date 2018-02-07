@@ -28,7 +28,7 @@ TINYCBOR_SOURCES = \
 	src/cborparser.c \
 	src/cborparser_dup_string.c \
 	src/cborpretty.c \
-	src/cbortojson.c \
+	linux_src/cbortojson.c \
 	src/cborvalidation.c \
 #
 CBORDUMP_SOURCES = tools/cbordump/cbordump.c
@@ -97,7 +97,7 @@ ifeq ($(open_memstream-pass),)
     CFLAGS += -DWITHOUT_OPEN_MEMSTREAM
     $(warning warning: funopen and fopencookie unavailable, open_memstream can not be implemented and conversion to JSON will not work properly!)
   else
-    TINYCBOR_SOURCES += src/open_memstream.c
+    TINYCBOR_SOURCES += linux_src/open_memstream.c
   endif
 endif
 
