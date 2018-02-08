@@ -1,6 +1,7 @@
 *.a
 *.so
 *.o
+*.pyc
 src/open_memstream.c
 lib
 bin
@@ -19,3 +20,6 @@ e2e-untiy
 #------------------
 mbed-os
 e2e-unity
+
+licenses
+
