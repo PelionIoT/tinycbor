@@ -21,17 +21,25 @@
 static int g_unity_status = EXIT_FAILURE;
 
 
-int main(int argc, char * argv[])
+int main(int argc, const char * argv[])
 {
     bool success = 0;
     int rc = 0;
-
-
+    const char **myargv = (const char **)calloc(2, sizeof(char *));
+    if (myargv == NULL) {
+        goto cleanup;
+    }
     setvbuf(stdout, (char *)NULL, _IONBF, 0); /* Avoid buffering on test output */
     printf("tiny_cbor_component_tests: Starting component tests...\n");
 
+    
+
+    myargv[0] = "tinycbor_tests";
+    myargv[1] = "-v";
+    
     printf("----< Test - Start >----\n");
-    rc = UnityMain(0, NULL, RunAllTinyCborTests);
+
+    rc = UnityMain(2, myargv, RunAllTinyCborTests);
     printf("----< Test - End >----\n");
 
 
@@ -49,7 +57,7 @@ cleanup:
     printf("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
     printf("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
     printf("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
-
+    free(myargv);
     fflush(stdout);
     return rc;
 }

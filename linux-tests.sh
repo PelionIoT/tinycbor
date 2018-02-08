@@ -16,7 +16,7 @@
 # source (!) this file while at SPV tree top - DO NOT run it
 export TINY_CBOR_TOP=`pwd`
 
-	sudo apt-get install qt5-default
+	sudo apt-get -y install qt5-default
 	export ARCH=`uname -m`
 	unset CROSS_COMPILE
 	export CC=gcc
@@ -28,4 +28,9 @@ export TINY_CBOR_TOP=`pwd`
 
 	make
 	cd qt_tests
+	qmake
 	make
+	./encoder/encoder
+	./parser/parser
+	./cpp/cpp
+	./tojson/tojson

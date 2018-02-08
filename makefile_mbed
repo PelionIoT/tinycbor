@@ -21,11 +21,11 @@ BUILD_SRCS_CBOR := \
 
 
 tiny_cbor_tests:
-	@echo $(TOOLCHAIN)
+	@echo $(TINYCBOR_TOOLCHAIN)
 	@#mkdir -p $(OUT_DIR)
 	@#cp -rfu $(TINY_CBOR_TOP)/TESTS/runner/tiny_cbor_main/tiny_cbor_test_runner_main.cpp $(OUT_DIR)
 	@mbed test \
-	-t $(TOOLCHAIN) \
+	-t $(TINYCBOR_TOOLCHAIN) \
 	--compile -v \
 	-n $(TEST_LIST) \
 	-m $(PLATFORM) \
@@ -33,6 +33,7 @@ tiny_cbor_tests:
 	--source $(TINY_CBOR_TOP)/TESTS/tests \
 	--source $(TINY_CBOR_TOP)/TESTS/runner/tiny_cbor_runner \
 	--app-config $(TINY_CBOR_TOP)/mbed_app.json \
+	--profile $(TINYCBOR_BUILD_TYPE) \
 	$(DFLAGS) $(CFLAGS) $(BUILD_CFLAGS)
 
 clean_tiny_cbor_tests:
