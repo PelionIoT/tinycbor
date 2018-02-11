@@ -22,7 +22,7 @@
 #include <assert.h>
 #include <string.h>
 #include "unity_helper_macros.h"
-#include "cbor.h"
+#include "tinycbor.h"
 
 
 
