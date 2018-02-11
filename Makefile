@@ -20,7 +20,7 @@ RMDIR = rmdir
 SED = sed
 
 # Our sources
-TINYCBOR_HEADERS = src/cbor.h src/cborjson.h
+TINYCBOR_HEADERS = src/tinycbor.h src/cborjson.h
 TINYCBOR_SOURCES = \
 	src/cborerrorstrings.c \
 	src/cborencoder.c \

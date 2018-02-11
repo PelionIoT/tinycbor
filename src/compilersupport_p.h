@@ -25,7 +25,7 @@
 #ifndef COMPILERSUPPORT_H
 #define COMPILERSUPPORT_H
 
-#include "cbor.h"
+#include "tinycbor.h"
 
 #ifndef _BSD_SOURCE
 #  define _BSD_SOURCE
@@ -63,7 +63,14 @@
 #endif
 
 #ifdef NDEBUG
-#  define cbor_assert(cond)     do { if (!(cond)) unreachable(); } while (0)
+/*
+ *uncomment the original define statement once cn-cbor is replaced by tinycbor.
+ *currently, the original statement causes link error in non gcc compiler
+ *
+ * #  define cbor_assert(cond)     do { if (!(cond)) unreachable(); } while (0)
+ *
+ */
+#  define cbor_assert(cond)     assert(cond) //temporary
 #else
 #  define cbor_assert(cond)     assert(cond)
 #endif
