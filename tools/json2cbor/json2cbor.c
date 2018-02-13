@@ -24,7 +24,7 @@
 
 #define _POSIX_C_SOURCE 200809L
 #define _GNU_SOURCE
-#include "cbor.h"
+#include "tinycbor.h"
 #include "compilersupport_p.h"
 
 #include <cjson/cJSON.h>

@@ -8,7 +8,7 @@ SOURCES += \
     $$PWD/cbortojson.c \
     $$PWD/cborvalidation.c \
 
-HEADERS += $$PWD/cbor.h $$PWD/tinycbor-version.h
+HEADERS += $$PWD/tinycbor.h $$PWD/tinycbor-version.h
 
 QMAKE_CFLAGS *= $$QMAKE_CFLAGS_SPLIT_SECTIONS
 QMAKE_LFLAGS *= $$QMAKE_LFLAGS_GCSECTIONS

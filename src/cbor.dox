@@ -37,8 +37,8 @@
  */
 
 /**
- * \file <cbor.h>
- * The <cbor.h> is the main header in TinyCBOR and defines the constants used by most functions
+ * \file <tinycbor.h>
+ * The <tinycbor.h> is the main header in TinyCBOR and defines the constants used by most functions
  * as well as the structures for encoding (CborEncoder) and decoding (CborValue).
  *
  * \sa <cborjson.h>
@@ -49,7 +49,7 @@
  * The <cborjson.h> file contains the routines that are used to convert a CBOR
  * data stream into JSON.
  *
- * \sa <cbor.h>
+ * \sa <tinycbor.h>
  */
 
 /**

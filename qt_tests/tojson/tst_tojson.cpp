@@ -23,7 +23,7 @@
 ****************************************************************************/
 
 #include <QtTest>
-#include "cbor.h"
+#include "tinycbor.h"
 #include "cborjson.h"
 #include <locale.h>
 

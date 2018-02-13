@@ -30,7 +30,7 @@
 #  define __STDC_LIMIT_MACROS 1
 #endif
 
-#include "cbor.h"
+#include "tinycbor.h"
 #include "cborjson.h"
 #include "compilersupport_p.h"
 

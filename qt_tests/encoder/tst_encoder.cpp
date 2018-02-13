@@ -23,7 +23,7 @@
 ****************************************************************************/
 
 #include <QtTest>
-#include "cbor.h"
+#include "tinycbor.h"
 
 Q_DECLARE_METATYPE(CborError)
 
