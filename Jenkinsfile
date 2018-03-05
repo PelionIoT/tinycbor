@@ -15,6 +15,8 @@
 // limitations under the License.
 // ----------------------------------------------------------------------------
 
+import JenkinsUtils
+
 import java.net.ServerSocket
 
 def isEmptyString(my_string) {
@@ -112,7 +114,7 @@ def build(Map m) {
     def branches           = _scm.branches
     def repo_url           = _scm.userRemoteConfigs[0].url
   
-    return {
+ 
         timeout(time: 120, unit: 'MINUTES') {
 
             node(node_name) {
@@ -164,7 +166,7 @@ def build(Map m) {
                 }
             }
         }
-    }
+    
 }
 
 def test(Map m) {
@@ -176,7 +178,7 @@ def test(Map m) {
     def artifact     = m.artifact
     def raas_daemon  = m.raas_daemon
 
-    return {
+    
         timeout(time: 140, unit: 'MINUTES') {
             node('prov-test-linux') {
                 deleteDir()
@@ -215,7 +217,7 @@ def test(Map m) {
                 }
             }
         }
-    }
+    
 }
 
 
@@ -277,6 +279,7 @@ node('prov-test-linux') {
 	def stepsForParallelTests = [:]
 	def currBuildStatus = hudson.model.Result.SUCCESS
 	
+	def jenkinsUtils = new JenkinsUtils()
 	
 	try {
 	
@@ -296,20 +299,27 @@ node('prov-test-linux') {
 						def _toolchain = toolchain
 						def _plat = plat
 						def _os = os
-						def _makfile = os_makefile_mapping[_os]
+						def _makefile = os_makefile_mapping[_os]
 						def _artifact = os_artifact_mapping[_os]
+						
 						
 						
 						stepsForParallel[stepName] = {
 							for(build_mode in build_modes) {
-								build(
+								echo _toolchain
+								echo _plat
+								echo _os
+								echo _makefile
+								echo _artifact
+								echo build_mode
+								jenkinsUtils.build(
 									toolchain: _toolchain,
 									os: _os,
 									platform: _plat,
 									env: [],
 									deploy: '',
 									setup: "source env_setup.sh ${_toolchain} ${build_mode}",
-									cmd: "make -f ${_makfile}",
+									cmd: "make -f ${_makefile}",
 									artifacts: [_artifact],
 									node_name: 'prov_bld',
 									scm: scm
@@ -339,7 +349,7 @@ node('prov-test-linux') {
 						def _artifact = os_artifact_mapping[_os]
 						stepsForParallelTests[stepName] = {
 							for(build_mode in build_modes) {
-								test(
+								jenkinsUtils.test(
 									name: 'tinycbor',
 									os: _os,
 									platform: _plat,
