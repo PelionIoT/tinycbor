@@ -15,8 +15,6 @@
 // limitations under the License.
 // ----------------------------------------------------------------------------
 
-import JenkinsUtils
-
 import java.net.ServerSocket
 
 def isEmptyString(my_string) {
@@ -279,6 +277,7 @@ node('prov-test-linux') {
 	def stepsForParallelTests = [:]
 	def currBuildStatus = hudson.model.Result.SUCCESS
 	
+	load 'JenkinsUtils.groovy'
 	def jenkinsUtils = new JenkinsUtils()
 	
 	try {
