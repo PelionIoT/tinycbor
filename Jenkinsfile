@@ -277,9 +277,10 @@ node('prov-test-linux') {
 	def stepsForParallelTests = [:]
 	def currBuildStatus = hudson.model.Result.SUCCESS
 	
+	checkout scm
 	load 'JenkinsUtils.groovy'
 	hello_func()
-	//def jenkinsUtils = new JenkinsUtils()
+	def jenkinsUtils = new JenkinsUtils()
 	
 	try {
 	
