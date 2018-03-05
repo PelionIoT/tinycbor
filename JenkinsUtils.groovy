@@ -1,6 +1,6 @@
 import java.net.ServerSocket
 
-class JenkinsUtils {
+public class JenkinsUtils {
 	def isEmptyString(my_string) {
 		return my_string==null || my_string.isEmpty()
 	}
