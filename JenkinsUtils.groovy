@@ -1,5 +1,9 @@
 import java.net.ServerSocket
 
+def hello_func() {
+	echo "HI!"
+}
+
 public class JenkinsUtils {
 	def isEmptyString(my_string) {
 		return my_string==null || my_string.isEmpty()
