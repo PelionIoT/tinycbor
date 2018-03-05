@@ -270,7 +270,7 @@ def qt_test()
 
 node('prov-test-linux') {
 	def os_list = ["mbedos"]
-	def platforms = ["K64F", fdsgf]
+	def platforms = ["K64F"]
 	def build_modes = ["debug", "develop", "release"]
 	def toolchains = ["GCC_ARM", "ARM"]
 	def stepsForParallel = [:]
@@ -313,6 +313,7 @@ node('prov-test-linux') {
 									artifacts: [_artifact],
 									node_name: 'prov_bld',
 									scm: scm
+								)
 							}
 						}
 					}
@@ -362,6 +363,6 @@ node('prov-test-linux') {
         currBuildStatus = hudson.model.Result.FAILURE
         throw e
     } finally {
-        notify_job_result(currBuildStatus)
+        //notify_job_result(currBuildStatus)
     }
 }
