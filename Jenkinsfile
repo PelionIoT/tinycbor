@@ -280,7 +280,7 @@ node('prov-test-linux') {
 	checkout scm
 	load 'JenkinsUtils.groovy'
 	hello_func()
-	def jenkinsUtils = new JenkinsUtils()
+	//def jenkinsUtils = new JenkinsUtils()
 	
 	try {
 	
