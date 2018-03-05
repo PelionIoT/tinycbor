@@ -278,7 +278,8 @@ node('prov-test-linux') {
 	def currBuildStatus = hudson.model.Result.SUCCESS
 	
 	load 'JenkinsUtils.groovy'
-	def jenkinsUtils = new JenkinsUtils()
+	hello_func()
+	//def jenkinsUtils = new JenkinsUtils()
 	
 	try {
 	
