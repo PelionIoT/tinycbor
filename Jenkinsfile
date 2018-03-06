@@ -50,7 +50,8 @@ def os_to_makefile(os) {
 	return os_makefile_mapping[os]
 }
 
-node('master') {
+
+def run_job() {
 	def os_list = ["mbedos"]
 	def platforms = ["K64F"]
 	def build_modes = ["debug", "develop", "release"]
@@ -59,13 +60,14 @@ node('master') {
 	def stepsForParallelTests = [:]
 	def currBuildStatus = hudson.model.Result.SUCCESS
 	
-	checkout scm	
+	
 	jenkinsUtils = load 'JenkinsUtils.groovy'
-	def c = {
+	load 'JenkinsUtils.groovy'
+	
 	try {
 	
 		// When building, we build all build modes in a single process. Parrallelism is for all the other combinations 
-		stage ('Build') {
+		
 			for (os in os_list) {
 				for (plat in platforms) {
 					for(toolchain in toolchains) {
@@ -101,9 +103,9 @@ node('master') {
 			}
 			
 			
-		}
 		
-		stage ('Tests') {
+		
+		
 			for (os in os_list) {
 				for (plat in platforms) {
 					for(toolchain in toolchains) {
@@ -135,14 +137,27 @@ node('master') {
 			stepsForParallelTests["QT Tests"] = { qt_test(jenkinsUtils) }
 			
 			// Actually run the steps in parallel - parallel takes a map as an argument,
-			parallel stepsForParallel
-			parallel stepsForParallelTests
-		}
+			stage ('Build') {
+				parallel stepsForParallel
+			}
+			stage ('Tests') {
+				parallel stepsForParallelTests
+			}
+		
 	} catch (Exception e) {
         currBuildStatus = hudson.model.Result.FAILURE
         throw e
     } finally {
         jenkinsUtils.notify_job_result(currBuildStatus)
     }
-	}.call()
+	
 }
+
+run_job()
+/*
+node('master') {
+	checkout scm	
+	jenkinsUtils = load 'JenkinsUtils.groovy'
+	load 'JenkinsUtils.groovy'
+}
+*/
