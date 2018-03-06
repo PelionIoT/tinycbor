@@ -39,9 +39,9 @@ def os_to_bin(os, plat, toolchain) {
 
 def os_to_artifact(os, plat, toolchain, build_mode) {
 	def os_artifact_mapping = [
-								"mbedos": "$tiny_cbor_main_${plat}_${toolchain}_${build_mode}.bin"
+								"mbedos": "out/tiny_cbor_main_${plat}_${toolchain}_${build_mode}.bin"
 								]
-	rerturn os_artifact_mapping[os]
+	return os_artifact_mapping[os]
 }
 
 def os_to_makefile(os) {
@@ -89,7 +89,7 @@ node('prov-test-linux') {
 									platform: _plat,
 									env: [],
 									setup: "source env_setup.sh ${_toolchain} ${build_mode}",
-									cmd: "make -f ${_makefile} && mv -f ${bin} ${artifact}",
+									cmd: "make -f ${_makefile} && mkdir -p out && mv -f ${bin} ${artifact}",
 									artifacts: [artifact],
 									node_name: 'prov_bld',
 									scm: scm

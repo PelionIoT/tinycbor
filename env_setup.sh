@@ -1,5 +1,6 @@
 export TINY_CBOR_TOP=`pwd`
 CACHE_PATH=/opt/scratch/$(whoami)/tcbor-cache
+source 
 
 # Toolchain
 TINYCBOR_TOOLCHAIN="$1"
@@ -33,7 +34,7 @@ if [ ! -f .mbed ]; then
 	# Enable mbed-os local PROTOCOL
 	mbed config PROTOCOL ssh
     cd mbed-os
-    mbed update caeaa49d68c67ee00275cece10cd88e0ed0f6ed3
+    mbed update $MBEDOS_REVISION
     cd ../
     
 fi
@@ -55,7 +56,7 @@ else
 fi
 
 if [ ! -d e2e-unity ]; then
-	mbed add -I https://github.com/ARMmbed/e2e-unity/#2b08a73292c4de21c13475e240d0b035df2abc53
+	mbed add -I https://github.com/ARMmbed/e2e-unity/#$E2E_UNITY_REVISION
 fi
 
 MBEDIGNORE="*"
