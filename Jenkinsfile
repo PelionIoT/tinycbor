@@ -61,8 +61,8 @@ node('master') {
 	
 	checkout scm	
 	jenkinsUtils = load 'JenkinsUtils.groovy'
-	
-	//try {
+	def c = {
+	try {
 	
 		// When building, we build all build modes in a single process. Parrallelism is for all the other combinations 
 		stage ('Build') {
@@ -78,7 +78,6 @@ node('master') {
 						def bin = os_to_bin(_os, _plat, _toolchain)
 						
 						stepsForParallel[stepName] = {
-						try{
 							for(build_mode in build_modes) {
 								def artifact = os_to_artifact(_os, _plat, _toolchain, build_mode)
 								jenkinsUtils.build(
@@ -94,13 +93,6 @@ node('master') {
 									node_name: 'prov_bld',
 									scm: scm
 								)
-								}
-								} catch (Exception e) {
-									currBuildStatus = hudson.model.Result.FAILURE
-									throw e
-								} finally {
-									jenkinsUtils.notify_job_result(currBuildStatus)
-								}
 								
 							}
 						}
@@ -121,7 +113,6 @@ node('master') {
 						def _plat = plat
 						def _os = os
 						stepsForParallelTests[stepName] = {
-							try{
 							for(build_mode in build_modes) {
 								def _artifact = os_to_artifact(_os, _plat, _toolchain, build_mode)
 								jenkinsUtils.unittests_run(
@@ -133,13 +124,7 @@ node('master') {
 									artifact: _artifact,
 									raas_daemon: 'kfn-mbedos'
 								)
-								}
-								} catch (Exception e) {
-									currBuildStatus = hudson.model.Result.FAILURE
-									throw e
-								} finally {
-									jenkinsUtils.notify_job_result(currBuildStatus)
-								}
+								
 							}
 						}
 					}
@@ -152,13 +137,12 @@ node('master') {
 			// Actually run the steps in parallel - parallel takes a map as an argument,
 			parallel stepsForParallel
 			parallel stepsForParallelTests
-		
-		/*
+		}
 	} catch (Exception e) {
         currBuildStatus = hudson.model.Result.FAILURE
         throw e
     } finally {
         jenkinsUtils.notify_job_result(currBuildStatus)
     }
-	*/
+	}.call()
 }
