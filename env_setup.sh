@@ -1,6 +1,6 @@
 export TINY_CBOR_TOP=`pwd`
 CACHE_PATH=/opt/scratch/$(whoami)/tcbor-cache
-source 
+source revisions.sh
 
 # Toolchain
 TINYCBOR_TOOLCHAIN="$1"

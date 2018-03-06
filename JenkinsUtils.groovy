@@ -210,7 +210,6 @@ def unittests_run(Map m) {
 }
 
 def execute_cmd(Map m) {
-	echo "IN EXECUTE CMD!!!!\n\n\n"
 	def cmd	= m.cmd
 	def node_name = m.node_name
 	

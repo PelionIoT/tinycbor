@@ -18,7 +18,6 @@
 
 def qt_test(jenkinsUtils)
 {
-	echo "IN QT TESTS!!!!!\n\n\n\n"
 	command = """
 				chmod +x linux-tests.sh
 				./linux-tests.sh
@@ -51,7 +50,7 @@ def os_to_makefile(os) {
 	return os_makefile_mapping[os]
 }
 
-node('prov-test-linux') {
+node('master') {
 	def os_list = ["mbedos"]
 	def platforms = ["K64F"]
 	def build_modes = ["debug", "develop", "release"]
@@ -63,7 +62,7 @@ node('prov-test-linux') {
 	checkout scm	
 	jenkinsUtils = load 'JenkinsUtils.groovy'
 	
-	try {
+	//try {
 	
 		// When building, we build all build modes in a single process. Parrallelism is for all the other combinations 
 		stage ('Build') {
@@ -79,6 +78,7 @@ node('prov-test-linux') {
 						def bin = os_to_bin(_os, _plat, _toolchain)
 						
 						stepsForParallel[stepName] = {
+						try{
 							for(build_mode in build_modes) {
 								def artifact = os_to_artifact(_os, _plat, _toolchain, build_mode)
 								jenkinsUtils.build(
@@ -94,6 +94,13 @@ node('prov-test-linux') {
 									node_name: 'prov_bld',
 									scm: scm
 								)
+								}
+								} catch (Exception e) {
+									currBuildStatus = hudson.model.Result.FAILURE
+									throw e
+								} finally {
+									jenkinsUtils.notify_job_result(currBuildStatus)
+								}
 								
 							}
 						}
@@ -101,8 +108,7 @@ node('prov-test-linux') {
 				}
 			}
 			
-			// Actually run the steps in parallel - parallel takes a map as an argument,
-			parallel stepsForParallel
+			
 		}
 		
 		stage ('Tests') {
@@ -115,6 +121,7 @@ node('prov-test-linux') {
 						def _plat = plat
 						def _os = os
 						stepsForParallelTests[stepName] = {
+							try{
 							for(build_mode in build_modes) {
 								def _artifact = os_to_artifact(_os, _plat, _toolchain, build_mode)
 								jenkinsUtils.unittests_run(
@@ -126,7 +133,13 @@ node('prov-test-linux') {
 									artifact: _artifact,
 									raas_daemon: 'kfn-mbedos'
 								)
-								
+								}
+								} catch (Exception e) {
+									currBuildStatus = hudson.model.Result.FAILURE
+									throw e
+								} finally {
+									jenkinsUtils.notify_job_result(currBuildStatus)
+								}
 							}
 						}
 					}
@@ -135,13 +148,17 @@ node('prov-test-linux') {
 			
 			// Add qt tests to parrallel testing
 			stepsForParallelTests["QT Tests"] = { qt_test(jenkinsUtils) }
+			
+			// Actually run the steps in parallel - parallel takes a map as an argument,
+			parallel stepsForParallel
 			parallel stepsForParallelTests
-			echo "Finished parrallel"
-		}
+		
+		/*
 	} catch (Exception e) {
         currBuildStatus = hudson.model.Result.FAILURE
         throw e
     } finally {
         jenkinsUtils.notify_job_result(currBuildStatus)
     }
+	*/
 }
