@@ -153,11 +153,7 @@ def run_job() {
 	
 }
 
-run_job()
-/*
-node('master') {
-	checkout scm	
-	jenkinsUtils = load 'JenkinsUtils.groovy'
-	load 'JenkinsUtils.groovy'
+stage ("Setup") {
+	run_job()
 }
-*/
+
