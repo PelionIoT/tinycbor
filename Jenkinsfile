@@ -126,7 +126,7 @@ def run_job(jenkinsUtils) {
 			}
 			
 			// Add qt tests to parrallel testing
-			stepsForParallelTests["QT Tests"] = { node ("prov-test-linux") { qt_test(jenkinsUtils) }}
+			stepsForParallelTests["QT Tests"] = { node ("prov_bld") { qt_test(jenkinsUtils) }}
 			
 			// Actually run the steps in parallel - parallel takes a map as an argument,
 			stage ('Build') {
