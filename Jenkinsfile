@@ -51,7 +51,7 @@ def os_to_makefile(os) {
 }
 
 
-def run_job() {
+def run_job(jenkinsUtils) {
 	def os_list = ["mbedos"]
 	def platforms = ["K64F"]
 	def build_modes = ["debug", "develop", "release"]
@@ -59,10 +59,6 @@ def run_job() {
 	def stepsForParallel = [:]
 	def stepsForParallelTests = [:]
 	def currBuildStatus = hudson.model.Result.SUCCESS
-	
-	
-	jenkinsUtils = load 'JenkinsUtils.groovy'
-	load 'JenkinsUtils.groovy'
 	
 	try {
 	
@@ -101,10 +97,6 @@ def run_job() {
 					}
 				}
 			}
-			
-			
-		
-		
 		
 			for (os in os_list) {
 				for (plat in platforms) {
@@ -134,7 +126,7 @@ def run_job() {
 			}
 			
 			// Add qt tests to parrallel testing
-			stepsForParallelTests["QT Tests"] = { qt_test(jenkinsUtils) }
+			stepsForParallelTests["QT Tests"] = { node ("prov-test-linux") { qt_test(jenkinsUtils) }}
 			
 			// Actually run the steps in parallel - parallel takes a map as an argument,
 			stage ('Build') {
@@ -154,6 +146,12 @@ def run_job() {
 }
 
 stage ("Setup") {
-	run_job()
+	// Load the utils script from master node
+	node ('master') {
+		jenkinsUtils = load 'JenkinsUtils.groovy'
+	}
+	
+	// Call run_job() using a flightwight executer since almost always idle
+	run_job(jenkinsUtils)
 }
 
