@@ -47,7 +47,7 @@ def clone_repository(Map m) {
 
 	echo "Cloning " + url + '#' + branches + ' using ' +  clean_method + ' method'
 
-	checkout(
+	checkout poll: false, scm:
 		[
 			$class: 'GitSCM',
 			branches: branches,
@@ -71,7 +71,7 @@ def clone_repository(Map m) {
 				]
 			]
 		]
-	)
+	
 
 	if (clean_method != 'WipeWorkspace') {
 		resetRepositoryToBaseline()
