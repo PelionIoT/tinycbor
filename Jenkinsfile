@@ -148,6 +148,7 @@ def run_job(jenkinsUtils) {
 stage ("Setup") {
 	// Load the utils script from master node
 	node ('master') {
+		checkout scm
 		jenkinsUtils = load 'JenkinsUtils.groovy'
 	}
 	
