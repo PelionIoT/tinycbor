@@ -522,6 +522,169 @@ CborError cbor_value_advance(CborValue *it)
 }
 
 /**
+* Creates a CborValue iterator pointing to the first element of the container
+* represented by \a it and saves it in \a recursed.The \a it container object
+* needs to be kept and passed again to cbor_value_leave_container() in order
+* to continue iterating past this container.
+* However, if the type is fixed the recursed points to  \a it.
+*/
+CborError cbor_init_container(const CborValue *it, CborValue *recursed)
+{
+
+    if (it == NULL)
+        return CborErrorIO;
+
+    *recursed = *it;
+
+    if (it->type == CborInvalidType) {
+        return CborErrorIO;
+    }
+
+    if (is_fixed_type(it->type) == true) {
+        return CborNoError;
+    }
+
+    if (cbor_value_is_container(it) == true) {
+        return cbor_value_enter_container(it, recursed);
+    }
+    return CborNoError;
+}
+/**
+* Advances the CBOR value \a it by one element, skipping over containers.
+* The function checks type of the value and calls to cbor_value_advance_fixed or cbor_value_advance
+* according to the type.
+* If current element is the last one the function returns CborErrorAdvancePastEOF.
+*/
+CborError cbor_get_next_container_element(CborValue *it)
+{
+    CborError err = CborNoError;
+
+    if (it == NULL)
+        return CborErrorIO;
+
+    if (it->type == CborInvalidType) {
+        return CborErrorIO;
+    }
+
+    if (is_fixed_type(it->type) == true) {
+        err = cbor_value_advance_fixed(it);
+    }
+    else {
+        err = cbor_value_advance(it);
+    }
+
+    if (err != CborNoError)
+        return err;
+    if (it->type == CborInvalidType)
+        return CborErrorAdvancePastEOF;
+
+    return CborNoError;
+}
+/**
+* Retrieves \a  recursed - CBOR value element from the \a array according to \a index.
+* \a index min value is 1.
+* \a array should by of array type with at least one element.
+*/
+CborError cbor_get_array_element(CborValue *array, int index, CborValue *recursed)
+{
+    CborError err;
+    size_t array_length;
+    int iteration_index = 1;
+
+    if (array == NULL || recursed == NULL)
+        return CborErrorIO;
+
+    if (array->type != CborArrayType || array->type == CborInvalidType || index == 0) {
+        return CborErrorIO;
+    }
+
+    err = cbor_value_get_array_length((const CborValue*)array, &array_length);
+    if (err != CborNoError) {
+        return err;
+    }
+
+    if (array_length == 0 || array_length < index) {
+        return CborErrorIO;
+    }
+
+    err = cbor_init_container(array, recursed);
+    if (err != CborNoError) {
+        return err;
+    }
+
+    while (1) {
+        if (iteration_index == index)
+            break;
+        err = cbor_get_next_container_element(recursed);
+        if (err != CborNoError) {
+            return err;
+        }
+        iteration_index++;
+    }
+
+    return CborNoError;
+}
+/**
+* Retrieves \a recursed - CBOR value element from the \a map according to \a key_value.
+* If the key is not found returns CborErrorIO
+* \a map should by of map type with at least one element.
+*/
+CborError cbor_get_map_element_by_int_key(CborValue *map, int key_value, CborValue *recursed)
+{
+    CborError err;
+    size_t map_length;
+    int iteration_index = 1;
+    int temp_key_value = 0;
+
+    //Check parameters
+    if (map == NULL || recursed == NULL)
+        return CborErrorIO;
+
+    //Check map type
+    if (map->type != CborMapType)
+        return CborErrorIO;
+
+    //Get map_length
+    err = cbor_value_get_map_length((const CborValue*)map, &map_length);
+    if (err != CborNoError)
+        return err;
+
+    if (map_length == 0)
+        return CborErrorIO;
+
+    //Go over the map anf try to find the key
+    while (iteration_index <= map_length) {
+
+        if (iteration_index == 1) {
+            err = cbor_init_container(map, recursed);
+        }
+        else {
+            err = cbor_get_next_container_element(recursed);
+        }
+        if (err != CborNoError)
+            return err;
+
+        if (recursed->type == CborIntegerType) {
+            err = cbor_value_get_int(recursed, &temp_key_value);
+            if (err != CborNoError)
+                return err;
+        }
+
+        err = cbor_get_next_container_element(recursed);
+        if (err != CborNoError) {
+            return err;
+        }
+        //If the key found return
+        if (temp_key_value == key_value) {
+            return CborNoError;
+        }
+        iteration_index++;
+    }
+
+    return CborErrorIO;
+}
+
+/**
  * \fn bool cbor_value_is_tag(const CborValue *value)
  *
  * Returns true if the iterator \a value is valid and points to a CBOR tag.

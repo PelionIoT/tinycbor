@@ -397,6 +397,11 @@ CBOR_INLINE_API CborError cbor_value_get_tag(const CborValue *value, CborTag *re
     *result = _cbor_value_extract_int64_helper(value);
     return CborNoError;
 }
+CBOR_API CborError cbor_init_container(const CborValue *it, CborValue *recursed);
+CBOR_API CborError cbor_get_next_container_element(CborValue *it);
+CBOR_API CborError cbor_get_array_element(CborValue *array, int index, CborValue *recursed);
+CBOR_API CborError cbor_get_map_element_by_int_key(CborValue *map, int key_value, CborValue *recursed);
+
 CBOR_API CborError cbor_value_skip_tag(CborValue *it);
 
 /* Strings */
