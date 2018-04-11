@@ -116,7 +116,7 @@ def run_job(jenkinsUtils) {
 									toolchain: _toolchain,
 									build_type: build_mode,
 									artifact: _artifact,
-									raas_daemon: 'kfn-mbedos'
+									raas_daemon: 'kfn-freertos'
 								)
 								
 							}
