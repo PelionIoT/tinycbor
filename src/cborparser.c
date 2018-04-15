@@ -480,7 +480,6 @@ static CborError advance_recursive(CborValue *it, int nestingLevel)
         size_t len = SIZE_MAX;
         return _cbor_value_copy_string(it, NULL, &len, it);
     }
-
     /* map or array */
     if (nestingLevel == 0)
         return CborErrorNestingTooDeep;
@@ -531,7 +530,7 @@ CborError cbor_value_advance(CborValue *it)
 CborError cbor_init_container(const CborValue *it, CborValue *recursed)
 {
 
-    if (it == NULL)
+    if (it == NULL && recursed == NULL)
         return CborErrorIO;
 
     *recursed = *it;
@@ -553,6 +552,7 @@ CborError cbor_init_container(const CborValue *it, CborValue *recursed)
 * Advances the CBOR value \a it by one element, skipping over containers.
 * The function checks type of the value and calls to cbor_value_advance_fixed or cbor_value_advance
 * according to the type.
+* cbor_init_container() shoul be called before.
 * If current element is the last one the function returns CborErrorAdvancePastEOF.
 */
 CborError cbor_get_next_container_element(CborValue *it)
@@ -572,9 +572,9 @@ CborError cbor_get_next_container_element(CborValue *it)
     else {
         err = cbor_value_advance(it);
     }
-
     if (err != CborNoError)
         return err;
+    //No next element, it was the last one
     if (it->type == CborInvalidType)
         return CborErrorAdvancePastEOF;
 
@@ -585,11 +585,11 @@ CborError cbor_get_next_container_element(CborValue *it)
 * \a index min value is 1.
 * \a array should by of array type with at least one element.
 */
-CborError cbor_get_array_element(CborValue *array, int index, CborValue *recursed)
+CborError cbor_get_array_element(const CborValue *array, uint32_t index, CborValue *recursed)
 {
     CborError err;
     size_t array_length;
-    int iteration_index = 1;
+    uint32_t iteration_index = 1;
 
     if (array == NULL || recursed == NULL)
         return CborErrorIO;
@@ -629,7 +629,7 @@ CborError cbor_get_array_element(CborValue *array, int index, CborValue *recurse
 * If the key is not found returns CborErrorIO
 * \a map should by of map type with at least one element.
 */
-CborError cbor_get_map_element_by_int_key(CborValue *map, int key_value, CborValue *recursed)
+CborError cbor_get_map_element_by_int_key(const CborValue *map, int key_value, CborValue *recursed)
 {
     CborError err;
     size_t map_length;
@@ -664,17 +664,19 @@ CborError cbor_get_map_element_by_int_key(CborValue *map, int key_value, CborVal
         if (err != CborNoError)
             return err;
 
+        //Check type of the key
         if (recursed->type == CborIntegerType) {
             err = cbor_value_get_int(recursed, &temp_key_value);
             if (err != CborNoError)
                 return err;
         }
 
+        //Get key's value
         err = cbor_get_next_container_element(recursed);
         if (err != CborNoError) {
             return err;
         }
-        //If the key found return
+        //If the key found do return
         if (temp_key_value == key_value) {
             return CborNoError;
         }
