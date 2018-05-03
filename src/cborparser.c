@@ -589,12 +589,12 @@ CborError cbor_get_array_element(const CborValue *array, uint32_t index, CborVal
 {
     CborError err;
     size_t array_length;
-    uint32_t iteration_index = 1;
+    uint32_t iteration_index = 0;
 
     if (array == NULL || recursed == NULL)
         return CborErrorIO;
 
-    if (array->type != CborArrayType || array->type == CborInvalidType || index == 0) {
+    if (array->type != CborArrayType || array->type == CborInvalidType ) {
         return CborErrorIO;
     }
 
@@ -603,7 +603,7 @@ CborError cbor_get_array_element(const CborValue *array, uint32_t index, CborVal
         return err;
     }
 
-    if (array_length == 0 || array_length < index) {
+    if (array_length == 0 || array_length <= index) {
         return CborErrorIO;
     }
 
@@ -621,6 +621,27 @@ CborError cbor_get_array_element(const CborValue *array, uint32_t index, CborVal
         }
         iteration_index++;
     }
+
+    return CborNoError;
+}
+
+CborError cbor_get_value_payload_buffer(CborValue *cbor_value, uint8_t **payload_buffer, size_t *payload_buffer_size)
+{
+    uint8_t *next_pointer = NULL;
+    CborValue temp_value;
+    CborError err;
+
+    if (cbor_value  == NULL || payload_buffer_size == NULL || payload_buffer ==  NULL) {
+        return CborErrorIO;
+    }
+
+    // Retrieve start of value buffer (get a pointer to start of the value)
+    *payload_buffer = (void*)cbor_value_get_next_byte(cbor_value);
+    if (*payload_buffer == NULL) {
+        return CborErrorIO;
+    }
+
+    *payload_buffer_size = (size_t)(cbor_value->parser->end - (uint8_t*)*payload_buffer);
 
     return CborNoError;
 }
