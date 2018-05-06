@@ -631,6 +631,10 @@ CborError cbor_get_cbor_payload_buffer_in_container(CborValue *cbor_value, uint8
     CborValue temp_value;
     CborError cbor_error = CborNoError;
 
+    if (cbor_value == NULL || payload_buffer_size == NULL || payload_buffer == NULL) {
+        return CborErrorIO;
+    }
+
     // Retrieve start of value buffer (get a pointer to start of the value)
     *payload_buffer = (uint8_t*)cbor_value_get_next_byte(cbor_value);
     if (*payload_buffer == NULL) {
@@ -660,26 +664,6 @@ CborError cbor_get_cbor_payload_buffer_in_container(CborValue *cbor_value, uint8
 
     return CborNoError;
 }
-/*CborError cbor_get_value_payload_buffer(CborValue *cbor_value, uint8_t **payload_buffer, size_t *payload_buffer_size)
-{
-    uint8_t *next_pointer = NULL;
-    CborValue temp_value;
-    CborError err;
-
-    if (cbor_value  == NULL || payload_buffer_size == NULL || payload_buffer ==  NULL) {
-        return CborErrorIO;
-    }
-
-    // Retrieve start of value buffer (get a pointer to start of the value)
-    *payload_buffer = (void*)cbor_value_get_next_byte(cbor_value);
-    if (*payload_buffer == NULL) {
-        return CborErrorIO;
-    }
-
-    *payload_buffer_size = (size_t)(cbor_value->parser->end - (uint8_t*)*payload_buffer);
-
-    return CborNoError;
-}*/
 /**
 * Retrieves \a recursed - CBOR value element from the \a map according to \a key_value.
 * If the key is not found returns CborErrorIO
