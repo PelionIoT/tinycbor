@@ -622,10 +622,45 @@ CborError cbor_get_array_element(const CborValue *array, uint32_t index, CborVal
         iteration_index++;
     }
 
+
     return CborNoError;
 }
+CborError cbor_get_cbor_payload_buffer_in_container(CborValue *cbor_value, uint8_t **payload_buffer, size_t *payload_buffer_size)
+{
+    uint8_t *next_pointer = NULL;
+    CborValue temp_value;
+    CborError cbor_error = CborNoError;
 
-CborError cbor_get_value_payload_buffer(CborValue *cbor_value, uint8_t **payload_buffer, size_t *payload_buffer_size)
+    // Retrieve start of value buffer (get a pointer to start of the value)
+    *payload_buffer = (uint8_t*)cbor_value_get_next_byte(cbor_value);
+    if (*payload_buffer == NULL) {
+        return CborErrorIO;
+    }
+
+    //Use temporary cbor value to get end of key buffer
+    memcpy((void*)&temp_value, (void*)cbor_value, sizeof(CborValue));
+
+    //Get to the temp value next map member
+    cbor_error = cbor_value_advance(&temp_value);
+    if (cbor_error != CborNoError) {
+        return cbor_error;
+    }
+
+    //Get start adders of next map member
+    next_pointer = (uint8_t*)cbor_value_get_next_byte(&temp_value);
+    if (next_pointer == NULL) {
+        return CborErrorIO;
+    }
+
+    //Calculate size current cbor buffer
+    *payload_buffer_size = (size_t)(next_pointer - (uint8_t*)*payload_buffer);
+    if (*payload_buffer_size == 0) {
+        return CborErrorIO;
+    }
+
+    return CborNoError;
+}
+/*CborError cbor_get_value_payload_buffer(CborValue *cbor_value, uint8_t **payload_buffer, size_t *payload_buffer_size)
 {
     uint8_t *next_pointer = NULL;
     CborValue temp_value;
@@ -644,7 +679,7 @@ CborError cbor_get_value_payload_buffer(CborValue *cbor_value, uint8_t **payload
     *payload_buffer_size = (size_t)(cbor_value->parser->end - (uint8_t*)*payload_buffer);
 
     return CborNoError;
-}
+}*/
 /**
 * Retrieves \a recursed - CBOR value element from the \a map according to \a key_value.
 * If the key is not found returns CborErrorIO
