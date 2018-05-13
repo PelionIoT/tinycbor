@@ -129,7 +129,7 @@ def build(Map m) {
 						"""
 
 						// Stash the resulting artifact(s)
-						if (!artifacts?.empty) {
+						if (!artifacts.isEmpty()) {
 							def _artifacts = artifacts.join(",")
 							echo "stash: ${_artifacts}"
 							stash name: "${name}.${platform}.${os}.${toolchain}.${build_type}", includes: "${_artifacts}"
