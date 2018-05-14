@@ -253,13 +253,11 @@ def notify_job_result(def currJobStatus) {
 
     if (shouldSend) {
         def to_recipients = 'iot-eng-provisioning-client@arm.com;Evgeni.Bolotin@arm.com;Nimrod.Zimerman@arm.com'
-		/*
         emailext(
             body: 'Please go to ${BUILD_URL} and verify the build', 
             subject: "${subjectStatus}! Job ${JOB_NAME} (${BUILD_NUMBER})", 
             to: to_recipients
         )
-		*/
     }
 }
 
