@@ -28,9 +28,6 @@ fi
 if [ ! -f .mbed ]; then
 	mbed new .
 
-	# Enable mbed-os local CACHE
-	mbed config CACHE $CACHE_PATH
-
 	# Enable mbed-os local PROTOCOL
 	mbed config PROTOCOL ssh
     cd mbed-os
