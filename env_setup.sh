@@ -48,7 +48,7 @@ elif [ "$TINYCBOR_TOOLCHAIN" == "ARM" ]; then
 	export ARMLMD_LICENSE_FILE=$TINY_CBOR_TOP/licenses/arm_licenses/arm_licenses.lic
 	mkdir -p $(dirname "${ARMLMD_LICENSE_FILE}")
 	curl http://prov-jen-master.kfn.arm.com:8888/job/vivify_arm_license/lastSuccessfulBuild/artifact/arm_licenses_vivified.lic > $ARMLMD_LICENSE_FILE
-	mbed config ARM_PATH /usr/local/DS-5_v5.25.0/ARMCompiler5.06u3
+	mbed config ARM_PATH /usr/local/ARM_Compiler_5.06u6
 	
 else 
 	echo "Unsupported toolchain Select GCC_ARM or ARM "
