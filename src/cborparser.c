@@ -530,7 +530,7 @@ CborError cbor_value_advance(CborValue *it)
 CborError cbor_init_container(const CborValue *it, CborValue *recursed)
 {
 
-    if (it == NULL && recursed == NULL)
+    if (it == NULL || recursed == NULL)
         return CborErrorIO;
 
     *recursed = *it;
