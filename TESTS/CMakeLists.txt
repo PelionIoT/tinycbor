@@ -9,7 +9,7 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../../unity)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/runner/tiny_cbor_runner)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/tests)
 
-set(TARGET_NAME "tiny_cbor_tests$ENV{BINARY_SUFFIX}")
+set(TARGET_NAME "tiny_cbor_tests")
 # tests includes
 FILE(
 	GLOB_RECURSE  
