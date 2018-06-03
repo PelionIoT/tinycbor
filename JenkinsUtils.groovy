@@ -120,13 +120,15 @@ def build(Map m) {
 							def deployer = load(deploy_groovy_file)
 							deployer.deploy()
 						}
-
-						// Setup and Build
-						sh """#!/bin/bash -lxe
-						echo "SETUP!!"
-						${setup_cmd}
-						${build_cmd}
-						"""
+						
+						 sshagent (credentials: ['be52c6a3-6658-4f1d-91c9-efd3332d7cf8']) {
+							// Setup and Build
+							sh """#!/bin/bash -lxe
+							echo "SETUP!!"
+							${setup_cmd}
+							${build_cmd}
+							"""
+						}
 
 						// Stash the resulting artifact(s)
 						if (!artifacts.isEmpty()) {
