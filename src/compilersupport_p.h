@@ -140,6 +140,14 @@
 #  define cbor_ntohs        _byteswap_ushort
 #  define cbor_htons        _byteswap_ushort
 #endif
+#if (defined(__ICCARM__))
+#    define cbor_ntohll
+#    define cbor_htonll
+#    define cbor_ntohl
+#    define cbor_htonl
+#    define cbor_ntohs
+#    define cbor_htons
+#endif
 #ifndef cbor_ntohs
 #  include <arpa/inet.h>
 #  define cbor_ntohs        ntohs
