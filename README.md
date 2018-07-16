@@ -1,11 +1,22 @@
 # tinycbor
 
-## Compile tests fpr mbed os
-- Call to mbed-os-tests.sh and select GCC_ARM or ARM toolchain
-- For ARM toolchian set path to ARMLMD_LICENSE_FILE
-- To clean test BUILD call "make -f mbed_Makefile clean" to make deep clean  "make -f mbed_Makefile deep_clean" 
+* This project is a C implementation of Concise Binary Object Representation or [CBOR](https://datatracker.ietf.org/doc/rfc7049/).
+* This implementation is a copy of [tinycbor](https://github.com/intel/tinycbor)
+* This implementation is memory efficient. 
 
+## Contributing
 
-## Building and running the built in tests (linux)
-* Call to linux-tests.sh and 
-* from qt_tests directory cd into whichever the directory that contains the test you wish to run, and run the binary file.
+Go ahead, file issues, make pull requests.
+
+## Building and Tests
+
+The project has unit tests for Mbed OS and QTTests for Linux. 
+They are compiled as part of internal infrastructure that isn't released.
+One who would like to compile them, will need to use his own build system.
+
+The library compiles for Mbed OS with GCC_ARM and ARMCC compilers.
+Currently isn't compiled with IAR
+
+## Restrictions
+
+APIs can be broken in the future.
