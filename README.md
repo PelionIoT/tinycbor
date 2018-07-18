@@ -1,8 +1,8 @@
 # tinycbor
 
-* This project is a C implementation of Concise Binary Object Representation or [CBOR](https://datatracker.ietf.org/doc/rfc7049/).
-* This implementation is a copy of [tinycbor](https://github.com/intel/tinycbor)
-* This implementation is memory efficient. 
+* This project is a C implementation of The Concise Binary Object Representation [CBOR](https://datatracker.ietf.org/doc/rfc7049/).
+* This implementation is a copy of [tinycbor](https://github.com/intel/tinycbor).
+* This implementation is memory-efficient. 
 
 ## Contributing
 
@@ -10,12 +10,12 @@ Go ahead, file issues, make pull requests.
 
 ## Building and Tests
 
-The project has unit tests for Mbed OS and QTTests for Linux. 
-They are compiled as part of internal infrastructure that isn't released.
-One who would like to compile them, will need to use his own build system.
+The project includes unit tests for Mbed OS and QTTests for Linux. 
+They are compiled as a part of internal infrastructure that isn't released.
+If you want to compile them yourself, you need to use your own build system.
 
 The library compiles for Mbed OS with GCC_ARM and ARMCC compilers.
-Currently isn't compiled with IAR
+Currently, you cannot compile with IAR.
 
 ## Restrictions
 
