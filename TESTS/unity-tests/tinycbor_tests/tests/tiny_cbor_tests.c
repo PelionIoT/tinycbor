@@ -268,10 +268,8 @@ TEST(TinyCborTests, encoder_test)
         //Compare created encoded buffer with the expected
         TEST_ASSERT_MESSAGE(encoded_out_buffer_len == expected_size_of_out_map, "The size of encoded buffer is different than expected");
         TEST_ASSERT_EQUAL_INT8_ARRAY_MESSAGE(encoded_out_buffer, expected_out_map_data, encoded_out_buffer_len, "Text encoded buffer is different than expected");
-
     }
-
-
+    free(encoded_out_buffer);
 }
 TEST(TinyCborTests, encoder_empty_map_test)
 {
@@ -315,6 +313,7 @@ TEST(TinyCborTests, encoder_empty_map_test)
     //Compare created encoded buffer with the expected
     TEST_ASSERT_MESSAGE(encoded_out_buffer_len == expected_size_of_out_map, "The size of encoded buffer is different than expected");
     TEST_ASSERT_EQUAL_INT8_ARRAY_MESSAGE(encoded_out_buffer, expected_out_map_data, encoded_out_buffer_len, "Text encoded buffer is different than expected");
+    free(encoded_out_buffer);
 }
 
 
