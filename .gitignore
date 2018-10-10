@@ -1,25 +1,3 @@
-*.a
-*.so
 *.o
-*.pyc
-src/open_memstream.c
 lib
 bin
-
-#------------------ 
-# Mbed-OS
-#------------------ 
-.mbed
-.temp/
-mbed-app.json
-BUILD
-mbed-os
-e2e-untiy
-#------------------ 
-# External repos
-#------------------
-mbed-os
-e2e-unity
-
-licenses
-
