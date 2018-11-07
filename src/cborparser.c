@@ -669,62 +669,69 @@ CborError cbor_get_cbor_payload_buffer_in_container(CborValue *cbor_value, uint8
 * If the key is not found returns CborErrorIO
 * \a map should by of map type with at least one element.
 */
-CborError cbor_get_map_element_by_int_key(const CborValue *map, int key_value, CborValue *recursed)
-{
-    CborError err;
-    size_t map_length;
-    int iteration_index = 1;
-    int temp_key_value = 0;
 
+
+CborError cbor_get_map_element_by_int_key(const CborValue *map, int key_value, CborValue *element)
+{
     //Check parameters
-    if (map == NULL || recursed == NULL)
+    if (map == NULL || element == NULL)
         return CborErrorIO;
 
     //Check map type
     if (map->type != CborMapType)
         return CborErrorIO;
 
-    //Get map_length
-    err = cbor_value_get_map_length((const CborValue*)map, &map_length);
-    if (err != CborNoError)
-        return err;
+    cbor_assert(cbor_value_is_map(map));
 
-    if (map_length == 0)
-        return CborErrorIO;
+    CborError err = cbor_value_enter_container(map, element);
+    if (err)
+        goto error;
 
-    //Go over the map anf try to find the key
-    while (iteration_index <= map_length) {
+    while (!cbor_value_at_end(element)) {
+        /* find the non-tag so we can compare */
+        err = cbor_value_skip_tag(element);
+        if (err)
+            goto error;
+        if (cbor_value_is_integer(element)) {
+            int cbor_key;
+            err = cbor_value_get_int(element, &cbor_key);
+            if (err)
+                goto error;
 
-        if (iteration_index == 1) {
-            err = cbor_init_container(map, recursed);
-        }
-        else {
-            err = cbor_get_next_container_element(recursed);
-        }
-        if (err != CborNoError)
-            return err;
-
-        //Check type of the key
-        if (recursed->type == CborIntegerType) {
-            err = cbor_value_get_int(recursed, &temp_key_value);
-            if (err != CborNoError)
-                return err;
+            if (cbor_key == key_value) {
+                return cbor_get_next_container_element(element);
+            } else {
+                err = cbor_value_advance(element);
+                if (err)
+                    goto error;
+            }
+        } else {
+            /* skip this key */
+            err = cbor_value_advance(element);
+            if (err)
+                goto error;
         }
 
-        //Get key's value
-        err = cbor_get_next_container_element(recursed);
-        if (err != CborNoError) {
-            return err;
-        }
-        //If the key found do return
-        if (temp_key_value == key_value) {
-            return CborNoError;
-        }
-        iteration_index++;
+        /* skip this value */
+        err = cbor_value_skip_tag(element);
+        if (err)
+            goto error;
+        err = cbor_value_advance(element);
+        if (err)
+            goto error;
     }
 
+    /* not found */
+    element->type = CborInvalidType;
     return CborErrorIO;
+
+error:
+    element->type = CborInvalidType;
+    return err;
+
 }
+
+
 
 /**
  * \fn bool cbor_value_is_tag(const CborValue *value)

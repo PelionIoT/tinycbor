@@ -349,6 +349,27 @@ CborError cbor_encode_int(CborEncoder *encoder, int64_t value)
 }
 
 /**
+* Appends the a key-value pair of unsigned integers to a map encoder
+* Does not check validity of encoder, and that it is actually a map.
+*
+* \sa cbor_encode_uint
+*/
+
+CborError cbor_map_encode_uint_uint(CborEncoder *mapEncoder, uint64_t key, uint64_t val)
+{
+    CborError ret;
+
+    ret = cbor_encode_uint(mapEncoder, key);
+    if (ret != CborNoError) {
+        return ret;
+    }
+
+    ret = cbor_encode_uint(mapEncoder, val);
+    return ret;
+}
+
+
+/**
  * Appends the CBOR Simple Type of value \a value to the CBOR stream provided by
  * \a encoder.
  *

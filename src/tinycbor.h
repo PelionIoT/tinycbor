@@ -242,6 +242,7 @@ CBOR_INLINE_API CborError cbor_encode_double(CborEncoder *encoder, double value)
 
 CBOR_API CborError cbor_encoder_create_array(CborEncoder *encoder, CborEncoder *arrayEncoder, size_t length);
 CBOR_API CborError cbor_encoder_create_map(CborEncoder *encoder, CborEncoder *mapEncoder, size_t length);
+CBOR_API CborError cbor_map_encode_uint_uint(CborEncoder *mapEncoder, uint64_t key, uint64_t val);
 CBOR_API CborError cbor_encoder_close_container(CborEncoder *encoder, const CborEncoder *containerEncoder);
 CBOR_API CborError cbor_encoder_close_container_checked(CborEncoder *encoder, const CborEncoder *containerEncoder);
 
