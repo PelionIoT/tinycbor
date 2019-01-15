@@ -16,10 +16,6 @@
 #include <stdio.h>
 #include "unity_fixture.h"
 #include "tiny_cbor_test_runner.h"
-#ifdef MBED_CONF_MBED_CLOUD_CLIENT_EXTERNAL_SST_SUPPORT
-#include "BlockDevice.h"
-#include "LittleFileSystem.h"
-#endif
 
 
 static int g_unity_status = EXIT_FAILURE;
@@ -27,14 +23,6 @@ static int g_unity_status = EXIT_FAILURE;
 
 int main(int argc, const char * argv[])
 {
-
-        // format little-fs FS
-#ifdef MBED_CONF_MBED_CLOUD_CLIENT_EXTERNAL_SST_SUPPORT    
-    BlockDevice *bd = BlockDevice::get_default_instance();
-    int ret = LittleFileSystem::format(bd);
-#endif 
-
-
     bool success = 0;
     int rc = 0;
     const char **myargv = (const char **)calloc(2, sizeof(char *));
