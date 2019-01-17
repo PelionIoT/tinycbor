@@ -16,7 +16,7 @@
 #include <stdio.h>
 #include "unity_fixture.h"
 #include "tiny_cbor_test_runner.h"
-
+#include "mcc_common_setup.h"
 
 static int g_unity_status = EXIT_FAILURE;
 
@@ -34,9 +34,9 @@ int main(int argc, const char * argv[])
 
 #ifdef MBED_CONF_MBED_CLOUD_CLIENT_EXTERNAL_SST_SUPPORT
     //Reformat storage
-    int res = mcc_platform_reformat_storage();
-    if (res != 0) {
-        return res;
+    rc = mcc_platform_reformat_storage();
+    if (rc != 0) {
+        goto cleanup;
 }
 #endif
 
