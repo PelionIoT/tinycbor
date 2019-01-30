@@ -22,8 +22,7 @@ static int g_unity_status = EXIT_FAILURE;
 
 
 int main(int argc, const char * argv[])
-{
-    bool success = 0;
+{    
     int rc = 0;
     const char **myargv = (const char **)calloc(2, sizeof(char *));
     if (myargv == NULL) {
