@@ -32,14 +32,6 @@ int main(int argc, const char * argv[])
     setvbuf(stdout, (char *)NULL, _IONBF, 0); /* Avoid buffering on test output */
     printf("tiny_cbor_component_tests: Starting component tests...\n");
 
-#ifdef MBED_CONF_MBED_CLOUD_CLIENT_EXTERNAL_SST_SUPPORT
-    //Reformat storage
-    rc = mcc_platform_reformat_storage();
-    if (rc != 0) {
-        goto cleanup;
-}
-#endif
-
     myargv[0] = "tinycbor_tests";
     myargv[1] = "-v";
     
