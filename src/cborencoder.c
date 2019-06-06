@@ -467,6 +467,73 @@ CborError cbor_encode_text_string(CborEncoder *encoder, const char *string, size
     return encode_string(encoder, length, TextStringType << MajorTypeShift, string);
 }
 
+/**
+ * Start encoding byte string to the CBOR stream
+ * 
+ * This function return pointer to be filled by the user
+ * and the maximum legnth can be used
+ *
+ * \sa cbor_encode_byte_string
+ */
+CBOR_API CborError cbor_encode_byte_string_start(const CborEncoder *encoder, const uint8_t **string_buffer, size_t *max_string_length)
+{
+    CborError err = CborNoError;
+    CborEncoder temp_encoder = *encoder; // copy encoder to temp encoder
+
+    if (encoder->end == NULL || encoder->data.ptr == NULL)
+        return CborErrorOutOfMemory;
+
+    // encode, for place holder, max_string_length using temp_encoder to avoid advancing encoder
+    *max_string_length = (size_t)(encoder->end - encoder->data.ptr);
+    err = encode_number(&temp_encoder, *max_string_length, ByteStringType << MajorTypeShift);
+    if (err == CborNoError) {
+        // set string_buffer to point on the data after the encoded number
+        *string_buffer = temp_encoder.data.ptr;
+        *max_string_length = (size_t)(temp_encoder.end - *string_buffer);
+    }
+    return CborNoError;
+}
+
+/**
+ * Finish encoding byte string to the CBOR stream
+ * 
+ * This function fix the header encoded on start based on the actual bytes used
+ * and move the data string to be after the corect header
+ *
+ * \sa cbor_encode_byte_string
+ */
+CBOR_API CborError cbor_encode_byte_string_finish(CborEncoder *encoder, size_t used_length)
+{
+    CborError err = CborNoError;
+    const uint8_t *start_ptr;
+    size_t max_string_length;
+    size_t i;
+
+    // call start again to calc start_ptr and max_string_length
+    err = cbor_encode_byte_string_start(encoder, &start_ptr, &max_string_length);
+    if (err != CborNoError)
+        return err;
+
+    if (used_length > max_string_length)
+        return CborErrorDataTooLarge;
+
+    err = encode_number(encoder, used_length, ByteStringType << MajorTypeShift);
+    if (err != CborNoError)
+        return err;
+
+    if (encoder->data.ptr < start_ptr) {
+        // used less bytes for header, move data just after header (memmove like)
+        for (i = 0; i < used_length; i++) {
+            encoder->data.ptr[i] = start_ptr[i];
+        }
+    }
+    else if (encoder->data.ptr > start_ptr)
+        return CborUnknownError; // not expected
+
+    encoder->data.ptr += used_length;
+    return CborNoError;
+}
+
 #ifdef __GNUC__
 __attribute__((noinline))
 #endif

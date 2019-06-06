@@ -316,6 +316,28 @@ TEST(TinyCborTests, encoder_empty_map_test)
     free(encoded_out_buffer);
 }
 
+TEST(TinyCborTests, encode_byte_string_start_finish_test)
+{
+    CborError cbor_error = CborNoError;
+    CborEncoder encoder;
+    uint8_t expected_cbor[] = { 0x58 , 0x32 , 0x00 , 0x01 , 0x02 , 0x03 , 0x04 , 0x05 , 0x06 , 0x07 , 0x08 , 0x09 , 0x00 , 0x01 , 0x02 , 0x03 , 0x04 , 0x05 , 0x06 , 0x07 , 0x08 , 0x09 , 0x00 , 0x01 , 0x02 , 0x03 , 0x04 , 0x05 , 0x06 , 0x07 , 0x08 , 0x09 , 0x00 , 0x01 , 0x02 , 0x03 , 0x04 , 0x05 , 0x06 , 0x07 , 0x08 , 0x09 , 0x00 , 0x01 , 0x02 , 0x03 , 0x04 , 0x05 , 0x06 , 0x07 , 0x08 , 0x09 };
+    uint8_t encoded_buffer[sizeof(expected_cbor)];
+    uint8_t *byte_string;
+    size_t byte_string_len;
+
+    cbor_encoder_init(&encoder, encoded_buffer, sizeof(encoded_buffer), 0);
+
+    cbor_error = cbor_encode_byte_string_start(&encoder, (const uint8_t**)&byte_string, &byte_string_len);
+    TEST_ASSERT_EQUAL(cbor_error, CborNoError);
+    TEST_ASSERT_EQUAL(byte_string_len, sizeof(encoded_buffer) - 2); // type + 1 byte len
+
+    memcpy(byte_string, expected_cbor + 2, byte_string_len);
+
+    cbor_error = cbor_encode_byte_string_finish(&encoder, byte_string_len);
+    TEST_ASSERT_EQUAL(cbor_error, CborNoError);
+    TEST_ASSERT_EQUAL_INT8_ARRAY_MESSAGE(expected_cbor, encoded_buffer, sizeof(expected_cbor), "Encoded buffer is different than expected");
+}
+
 
 TEST_GROUP_RUNNER(TinyCborTests)
 {
@@ -323,4 +345,5 @@ TEST_GROUP_RUNNER(TinyCborTests)
     RUN_TEST_CASE(TinyCborTests, parser_empty_maps_test);
     RUN_TEST_CASE(TinyCborTests, encoder_test);
     RUN_TEST_CASE(TinyCborTests, encoder_empty_map_test);
+    RUN_TEST_CASE(TinyCborTests, encode_byte_string_start_finish_test);
 }

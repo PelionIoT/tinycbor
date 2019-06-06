@@ -224,6 +224,9 @@ CBOR_API CborError cbor_encode_text_string(CborEncoder *encoder, const char *str
 CBOR_INLINE_API CborError cbor_encode_text_stringz(CborEncoder *encoder, const char *string)
 { return cbor_encode_text_string(encoder, string, strlen(string)); }
 CBOR_API CborError cbor_encode_byte_string(CborEncoder *encoder, const uint8_t *string, size_t length);
+CBOR_API CborError cbor_encode_byte_string_start(const CborEncoder *encoder, const uint8_t **string_buffer, size_t *max_string_length);
+CBOR_API CborError cbor_encode_byte_string_finish(CborEncoder *encoder, size_t used_length);
+
 CBOR_API CborError cbor_encode_floating_point(CborEncoder *encoder, CborType fpType, const void *value);
 
 CBOR_INLINE_API CborError cbor_encode_boolean(CborEncoder *encoder, bool value)
