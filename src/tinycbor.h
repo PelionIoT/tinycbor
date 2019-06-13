@@ -580,6 +580,8 @@ enum CborValidationFlags {
 
 CBOR_API CborError cbor_value_validate(const CborValue *it, int flags);
 
+#ifndef __SXOS__ // Disable for SXOS since no FILE in the toolchain
+
 /* The following API requires a hosted C implementation (uses FILE*) */
 
 /* removing the hosted C implementation check.
@@ -612,6 +614,8 @@ CBOR_INLINE_API CborError cbor_value_to_pretty(FILE *out, const CborValue *value
 }
 
 //#endif /* __STDC_HOSTED__ check */
+
+#endif // __SXOS__
 
 #ifdef __cplusplus
 }

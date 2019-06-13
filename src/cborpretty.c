@@ -22,6 +22,8 @@
 **
 ****************************************************************************/
 
+#ifndef __SXOS__ // Disable for SXOS since no FILE in the toolchain
+
 #define _BSD_SOURCE 1
 #define _DEFAULT_SOURCE 1
 #ifndef __STDC_LIMIT_MACROS
@@ -568,5 +570,7 @@ CborError cbor_value_to_pretty_advance_flags(FILE *out, CborValue *value, int fl
 {
     return value_to_pretty(out, value, flags, CBOR_PARSER_MAX_RECURSIONS);
 }
+
+#endif // __SXOS__
 
 /** @} */
