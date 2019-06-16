@@ -1,6 +1,9 @@
 
 cmake_minimum_required (VERSION 3.5)
 
+# includes
+ADD_GLOBALDIR(${CMAKE_CURRENT_SOURCE_DIR}/src)
+
 FILE(
 	GLOB_RECURSE  
 	tinycbor
