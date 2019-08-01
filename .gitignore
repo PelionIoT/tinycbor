@@ -1,3 +1,5 @@
 *.o
+*.pc
 lib
 bin
+qt_tests
