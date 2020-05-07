@@ -372,7 +372,8 @@ static inline CborError validate_tag(CborValue *it, CborTag tag, int flags, int 
 #ifndef CBOR_NO_FLOATING_POINT
 static inline CborError validate_floating_point(CborValue *it, CborType type, int flags)
 {
-    CborError err;
+    CborError err = CborNoError;
+    (void)err;
     double val;
     float valf;
     uint16_t valf16;

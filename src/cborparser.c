@@ -318,8 +318,9 @@ static CborError preparse_next_value(CborValue *it)
 
 static CborError advance_internal(CborValue *it)
 {
-    uint64_t length;
+    uint64_t length = 0;
     CborError err = _cbor_value_extract_number(&it->ptr, it->parser->end, &length);
+    (void)err;
     cbor_assert(err == CborNoError);
 
     if (it->type == CborByteStringType || it->type == CborTextStringType) {
@@ -804,7 +805,7 @@ CborError cbor_value_enter_container(const CborValue *it, CborValue *recursed)
          * it's just an empty container */
         ++recursed->ptr;
     } else {
-        uint64_t len;
+        uint64_t len = 0;
         err = _cbor_value_extract_number(&recursed->ptr, recursed->parser->end, &len);
         cbor_assert(err == CborNoError);
 
