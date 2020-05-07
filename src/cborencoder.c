@@ -505,7 +505,7 @@ CBOR_API CborError cbor_encode_byte_string_start(const CborEncoder *encoder, con
 CBOR_API CborError cbor_encode_byte_string_finish(CborEncoder *encoder, size_t used_length)
 {
     CborError err = CborNoError;
-    const uint8_t *start_ptr;
+    const uint8_t *start_ptr = NULL;
     size_t max_string_length;
     size_t i;
 
