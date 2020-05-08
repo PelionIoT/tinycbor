@@ -221,7 +221,7 @@ static CborError preparse_value(CborValue *it)
         return CborErrorUnexpectedEOF;
 
     uint8_t descriptor = *it->ptr;
-    uint8_t type = descriptor & MajorTypeMask;
+    uint8_t type = descriptor & ((uint8_t)MajorTypeMask);
     it->type = type;
     it->flags = 0;
     it->extra = (descriptor &= SmallValueMask);
@@ -238,7 +238,7 @@ static CborError preparse_value(CborValue *it)
         return type == CborSimpleType ? CborErrorUnexpectedBreak : CborErrorIllegalNumber;
     }
 
-    size_t bytesNeeded = descriptor < Value8Bit ? 0 : (1 << (descriptor - Value8Bit));
+    size_t bytesNeeded = (size_t)(descriptor < Value8Bit ? 0 : (1 << (descriptor - Value8Bit)));
     if (bytesNeeded + 1 > (size_t)(parser->end - it->ptr))
         return CborErrorUnexpectedEOF;
 
@@ -1046,7 +1046,7 @@ CborError cbor_value_get_int64_checked(const CborValue *value, int64_t *result)
     if (unlikely(v > (uint64_t)INT64_MAX))
         return CborErrorDataTooLarge;
 
-    *result = v;
+    *result = (int64_t)v;
     if (value->flags & CborIteratorFlag_NegativeInteger)
         *result = -*result - 1;
     return CborNoError;
