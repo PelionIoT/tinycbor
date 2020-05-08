@@ -443,7 +443,7 @@ static CborError validate_container(CborValue *it, int containerType, int flags,
         return CborErrorNestingTooDeep;
 
     while (!cbor_value_at_end(it)) {
-        const uint8_t *current;
+        const uint8_t *current = NULL;
 
         if (containerType == CborMapType) {
             current = it->ptr;
