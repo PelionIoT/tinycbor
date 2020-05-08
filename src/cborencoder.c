@@ -289,7 +289,7 @@ static inline CborError encode_number_no_update(CborEncoder *encoder, uint64_t u
     put64(buf + 1, ui);     /* we probably have a bunch of zeros in the beginning */
 
     if (ui < Value8Bit) {
-        *bufstart += (uint8_t)shiftedMajorType;
+        *bufstart = (uint8_t)(*bufstart + shiftedMajorType);
     } else {
         uint8_t more = 0;
         if (ui > 0xffU)
