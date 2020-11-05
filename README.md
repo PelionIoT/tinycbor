@@ -20,3 +20,6 @@ Currently, you cannot compile with IAR.
 ## Restrictions
 
 APIs can be broken in the future.
+
+# NOTE
+The development was migrated to a folder in https://github.com/ARMmbed/mbed-cloud-client-internal
